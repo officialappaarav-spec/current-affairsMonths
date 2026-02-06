@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>2026 Present</title>
+
+<style>
+/* ====== RESET ====== */
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial, sans-serif;
+}
+
+/* ====== PAGE ====== */
+body{
+  background:#f4f6f8;
+  padding:15px;
+}
+
+/* ====== TITLE ====== */
+.title{
+  text-align:center;
+  font-size:22px;
+  font-weight:bold;
+  margin-bottom:15px;
+  color:#222;
+}
+
+/* ====== VERTICAL LIST ====== */
+.month-container{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+/* ====== CARD ====== */
+.month-card{
+  background:#ffffff;
+  padding:18px;
+  text-align:center;
+  border-radius:12px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.08);
+  font-size:16px;
+  font-weight:600;
+  color:#2196F3;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+/* ====== HOVER ====== */
+.month-card:hover{
+  transform:translateY(-2px);
+}
+
+/* ====== DISABLED ====== */
+.month-card.disabled{
+  opacity:0.5;
+  cursor:not-allowed;
+  pointer-events:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="title">2026 Present</div>
+
+<div class="month-container" id="months"></div>
+
+<script>
+/* ====== MONTH DATA (INDIVIDUAL CONTROL) ====== */
+const months = [
+  {name:"January", url:"https://example.com/january", enabled:true},
+  {name:"February", url:"https://example.com/february", enabled:true},
+  {name:"March", url:"https://example.com/march", enabled:false},
+  {name:"April", url:"https://example.com/april", enabled:false},
+  {name:"May", url:"https://example.com/may", enabled:false},
+  {name:"June", url:"https://example.com/june", enabled:false},
+  {name:"July", url:"https://example.com/july", enabled:false},
+  {name:"August", url:"https://example.com/august", enabled:false},
+  {name:"September", url:"https://example.com/september", enabled:false},
+  {name:"October", url:"https://example.com/october", enabled:false},
+  {name:"November", url:"https://example.com/november", enabled:false},
+  {name:"December", url:"https://example.com/december", enabled:false}
+];
+
+/* ====== CREATE CARDS ====== */
+const container = document.getElementById("months");
+
+months.forEach(m=>{
+  const card = document.createElement("div");
+  card.className = "month-card";
+  card.innerText = m.name;
+
+  if(m.enabled){
+    card.onclick = ()=>window.location.href = m.url;
+  }else{
+    card.classList.add("disabled");
+    card.innerText = m.name + " (Coming Soon)";
+  }
+
+  container.appendChild(card);
+});
+</script>
+
+</body>
+</html>
