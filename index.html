@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>2026 Present</title>
 
 <style>
@@ -10,55 +11,66 @@
   box-sizing:border-box;
   margin:0;
   padding:0;
-  font-family:Arial, sans-serif;
+  font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
 }
 
 /* ====== PAGE ====== */
 body{
   background:#f4f6f8;
-  padding:15px;
+  padding:12px;
 }
 
 /* ====== TITLE ====== */
 .title{
   text-align:center;
-  font-size:22px;
-  font-weight:bold;
-  margin-bottom:15px;
+  font-size:20px;
+  font-weight:700;
+  margin:10px 0 18px;
   color:#222;
 }
 
-/* ====== VERTICAL LIST ====== */
+/* ====== LIST ====== */
 .month-container{
   display:flex;
   flex-direction:column;
-  gap:12px;
+  gap:14px;
 }
 
 /* ====== CARD ====== */
 .month-card{
+  width:100%;
   background:#ffffff;
-  padding:18px;
+  padding:16px 12px;
   text-align:center;
-  border-radius:12px;
-  box-shadow:0 4px 10px rgba(0,0,0,0.08);
+  border-radius:14px;
+  box-shadow:0 6px 14px rgba(0,0,0,0.08);
   font-size:16px;
   font-weight:600;
   color:#2196F3;
   cursor:pointer;
-  transition:0.2s;
+  transition:transform 0.15s ease, box-shadow 0.15s ease;
+  user-select:none;
 }
 
-/* ====== HOVER ====== */
-.month-card:hover{
-  transform:translateY(-2px);
+/* ====== TAP FEEDBACK ====== */
+.month-card:active{
+  transform:scale(0.97);
+  box-shadow:0 3px 8px rgba(0,0,0,0.12);
 }
 
 /* ====== DISABLED ====== */
 .month-card.disabled{
-  opacity:0.5;
+  opacity:0.45;
   cursor:not-allowed;
   pointer-events:none;
+}
+
+/* ====== DESKTOP POLISH ====== */
+@media(min-width:768px){
+  body{
+    max-width:420px;
+    margin:auto;
+  }
 }
 </style>
 </head>
@@ -86,19 +98,18 @@ const months = [
   {name:"December", url:"https://example.com/december", enabled:false}
 ];
 
-/* ====== CREATE CARDS ====== */
+/* ====== RENDER ====== */
 const container = document.getElementById("months");
 
 months.forEach(m=>{
   const card = document.createElement("div");
   card.className = "month-card";
-  card.innerText = m.name;
+  card.innerText = m.enabled ? m.name : m.name + " (Coming Soon)";
 
   if(m.enabled){
     card.onclick = ()=>window.location.href = m.url;
   }else{
     card.classList.add("disabled");
-    card.innerText = m.name + " (Coming Soon)";
   }
 
   container.appendChild(card);
